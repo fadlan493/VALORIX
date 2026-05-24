@@ -274,3 +274,10 @@
   }
   .gallery-item:hover{
     border-color:var(--diamond);
+}
+</style>
+</head>
+<body>
+
+</body>
+</html>
