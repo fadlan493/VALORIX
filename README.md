@@ -1,3 +1,9 @@
+<body>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAADVY7glp3RGl3H3m"></div>
+<!-- isi website kamu -->
+</body>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
