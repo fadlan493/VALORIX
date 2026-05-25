@@ -1,9 +1,4 @@
-<body>
-
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<div class="cf-turnstile" data-sitekey="0x4AAAAAADVY7glp3RGl3H3m"></div>
-<!-- isi website kamu -->
-</body>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -49,12 +44,30 @@
   .nav-links{display:flex;gap:4px;}
   .nav-link{font-family:'VT323',monospace;font-size:16px;letter-spacing:1px;color:rgba(200,230,255,0.65);text-decoration:none;padding:6px 12px;border-radius:2px;transition:all .2s;border:1px solid transparent;cursor:pointer;background:none;}
   .nav-link:hover,.nav-link.active{color:var(--diamond);border-color:rgba(79,228,228,0.3);background:rgba(79,228,228,0.07);}
-  .nav-mobile-btn{display:none;background:none;border:1px solid rgba(79,228,228,0.3);color:var(--diamond);font-size:18px;padding:4px 10px;cursor:pointer;border-radius:2px;}
+  
+  .nav-mobile-btn{display:none;background:none;border:1px solid rgba(79,228,228,0.3);color:var(--diamond);font-size:18px;padding:4px 10px;cursor:pointer;border-radius:2px;transition:all .3s;position:relative;width:40px;height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+  .nav-mobile-btn span{display:block;width:20px;height:2px;background:var(--diamond);border-radius:1px;transition:all .3s ease;transform-origin:center;}
+  .nav-mobile-btn.active span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+  .nav-mobile-btn.active span:nth-child(2){opacity:0;transform:translateX(-10px);}
+  .nav-mobile-btn.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+  
   @media(max-width:600px){
-    .nav-links{display:none;flex-direction:column;position:absolute;top:52px;left:0;right:0;background:rgba(8,15,28,0.97);border-bottom:1px solid rgba(79,228,228,0.15);padding:8px;}
-    .nav-links.open{display:flex;}
-    .nav-mobile-btn{display:block;}
+    .nav-links{display:none;flex-direction:column;position:absolute;top:52px;left:0;right:0;background:rgba(8,15,28,0.98);border-bottom:1px solid rgba(79,228,228,0.15);padding:12px 8px;backdrop-filter:blur(20px);max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.34,.1,.68,.55);}
+    .nav-links.open{display:flex;max-height:500px;}
+    .nav-links.open .nav-link{animation:menuItemSlide .3s cubic-bezier(.34,.1,.68,.55) forwards;}
+    .nav-links.open .nav-link:nth-child(1){animation-delay:.05s;}
+    .nav-links.open .nav-link:nth-child(2){animation-delay:.1s;}
+    .nav-links.open .nav-link:nth-child(3){animation-delay:.15s;}
+    .nav-links.open .nav-link:nth-child(4){animation-delay:.2s;}
+    .nav-links.open .nav-link:nth-child(5){animation-delay:.25s;}
+    .nav-links.open .nav-link:nth-child(6){animation-delay:.3s;}
+    .nav-links.open .nav-link:nth-child(7){animation-delay:.35s;}
+    .nav-links.open .nav-link:nth-child(8){animation-delay:.4s;}
+    .nav-links.open .nav-link:nth-child(9){animation-delay:.45s;}
+    .nav-link{opacity:0;transform:translateX(-20px);}
+    .nav-mobile-btn{display:flex;}
   }
+  @keyframes menuItemSlide{from{opacity:0;transform:translateX(-20px);}to{opacity:1;transform:translateX(0);}}
 
   /* CONTENT */
   .content{position:relative;z-index:20;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:80px 20px 180px;}
@@ -359,6 +372,116 @@
     letter-spacing:2px;
   }
 
+  /* ===== INTRO ANIMATION ===== */
+  #introOverlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#0a0f1a;animation:introFadeOut .6s ease-out 3.8s forwards;}
+  @keyframes introFadeOut{to{opacity:0;pointer-events:none;}}
+  .intro-bg{position:absolute;inset:0;background:linear-gradient(180deg,#0a1628 0%,#1a3a5c 40%,#2a5080 70%,#3a6a9a 100%);}
+  .intro-particles{position:absolute;inset:0;overflow:hidden;}
+  .intro-particle{position:absolute;background:rgba(255,255,255,.3);border-radius:50%;animation:particleFloat 3s ease-in-out infinite;}
+  @keyframes particleFloat{0%,100%{transform:translateY(0) scale(1);opacity:0;}50%{opacity:1;}}
+  .intro-content{position:relative;z-index:2;text-align:center;animation:introContentIn .5s cubic-bezier(.34,.1,.68,.55) .2s forwards;opacity:0;}
+  @keyframes introContentIn{to{opacity:1;}}
+  .intro-logo-wrap{margin-bottom:24px;perspective:1000px;}
+  .intro-logo{width:140px;height:140px;border-radius:12px;border:4px solid rgba(79,228,228,.6);box-shadow:0 0 40px rgba(79,228,228,.4),0 0 80px rgba(79,228,228,.15);image-rendering:pixelated;animation:logoSpinIn .8s cubic-bezier(.34,.1,.68,.55) .4s forwards;opacity:0;transform:rotateY(90deg) scale(.7);}
+  @keyframes logoSpinIn{to{opacity:1;transform:rotateY(0) scale(1);}}
+  .intro-title-wrap{margin-bottom:20px;}
+  .intro-word{font-family:'Press Start 2P',monospace;font-size:clamp(24px,8vw,48px);font-weight:bold;color:#fff;letter-spacing:3px;text-shadow:4px 4px 0 #0a4a1a;line-height:1.3;animation:wordSlideIn .6s cubic-bezier(.34,.1,.68,.55) .6s forwards;opacity:0;transform:translateY(30px);}
+  .intro-word.accent{color:var(--diamond);text-shadow:3px 3px 0 #003a5c,0 0 32px rgba(79,228,228,.8);}
+  @keyframes wordSlideIn{to{opacity:1;transform:translateY(0);}}
+  .intro-sub{font-family:'VT323',monospace;font-size:18px;letter-spacing:3px;color:rgba(200,230,255,.65);margin-bottom:24px;animation:subFadeIn .5s ease .9s forwards;opacity:0;}
+  @keyframes subFadeIn{to{opacity:1;}}
+  .intro-bar-wrap{max-width:280px;margin:24px auto;}
+  .intro-bar-track{height:4px;background:rgba(79,228,228,.15);border-radius:2px;overflow:hidden;border:1px solid rgba(79,228,228,.3);}
+  .intro-bar-fill{height:100%;background:linear-gradient(90deg,var(--diamond),var(--neon),var(--gold));animation:introBarLoad 3.5s ease-in-out .3s forwards;width:0%;}
+  @keyframes introBarLoad{to{width:100%;}}
+  .intro-bar-label{font-family:'VT323',monospace;font-size:14px;color:rgba(200,230,255,.5);letter-spacing:2px;margin-top:8px;animation:labelFade .4s ease 1s forwards;opacity:0;}
+  @keyframes labelFade{to{opacity:1;}}
+  .intro-skip{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);font-family:'VT323',monospace;font-size:16px;color:rgba(200,230,255,.4);letter-spacing:2px;cursor:pointer;transition:all .3s;animation:skipFade .3s ease 2s forwards;opacity:0;}
+  .intro-skip:hover{color:var(--diamond);transform:translateX(-50%) scale(1.08);}
+  @keyframes skipFade{to{opacity:1;}}
+  .intro-blocks{position:absolute;inset:0;overflow:hidden;}
+  .intro-block{position:absolute;background:rgba(79,228,228,.08);border:1px solid rgba(79,228,228,.2);animation:blockPixelate .3s ease;opacity:0;}
+  @keyframes blockPixelate{from{opacity:.6;transform:scale(1.2);}to{opacity:0;transform:scale(.8);}}
+
+  /* ===== RANK SECTION ===== */
+  .rank-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:0;}
+  .rank-card{background:var(--panel);border:2px solid rgba(79,228,228,.2);border-radius:4px;padding:20px;position:relative;overflow:hidden;transition:all .25s;backdrop-filter:blur(8px);}
+  .rank-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--diamond),transparent);}
+  .rank-card:hover{transform:translateY(-6px);border-color:rgba(79,228,228,.45);box-shadow:0 12px 36px rgba(79,228,228,.15);}
+  .rank-vip{border-color:rgba(79,228,228,.25);}
+  .rank-vip:hover{box-shadow:0 12px 36px rgba(79,228,228,.15);}
+  .rank-vipp{border-color:rgba(100,200,255,.25);}
+  .rank-mvp{border-color:rgba(170,100,255,.25);}
+  .rank-legend{border-color:rgba(255,200,50,.25);}
+  .rank-deckhand{border-color:rgba(100,200,150,.25);}
+  .rank-viscount{border-color:rgba(180,100,200,.25);}
+  .rank-badge-sale{position:absolute;top:12px;right:12px;background:rgba(255,80,80,.2);border:1px solid rgba(255,80,80,.5);color:#ff8888;font-family:'Press Start 2P',monospace;font-size:6px;padding:4px 10px;border-radius:2px;letter-spacing:1px;animation:badgePulse 2s ease-in-out infinite;}
+  .rank-header-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(79,228,228,.15);}
+  .rank-icon{font-size:24px;display:block;}
+  .rank-name{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--diamond);letter-spacing:2px;flex:1;text-align:center;}
+  .rank-price{font-family:'VT323',monospace;font-size:14px;color:var(--gold);letter-spacing:1px;white-space:nowrap;font-weight:bold;}
+  .rank-perks{list-style:none;margin-bottom:16px;}
+  .rank-perks li{font-family:'VT323',monospace;font-size:14px;color:rgba(200,230,255,.7);margin-bottom:7px;padding-left:6px;letter-spacing:.5px;line-height:1.4;}
+  .rank-buy-btn{display:block;width:100%;padding:12px;background:linear-gradient(180deg,rgba(79,228,228,.3),rgba(79,228,228,.1));border:1px solid rgba(79,228,228,.4);color:var(--diamond);font-family:'Press Start 2P',monospace;font-size:8px;letter-spacing:2px;border-radius:2px;cursor:pointer;transition:all .2s;text-decoration:none;text-align:center;}
+  .rank-buy-btn:hover{background:linear-gradient(180deg,rgba(79,228,228,.5),rgba(79,228,228,.25));border-color:var(--diamond);transform:scale(1.02);}
+  .vip-btn{background:linear-gradient(180deg,rgba(79,228,228,.3),rgba(79,228,228,.1));}
+  .vipp-btn{background:linear-gradient(180deg,rgba(100,200,255,.25),rgba(100,200,255,.08));}
+  .mvp-btn{background:linear-gradient(180deg,rgba(170,100,255,.25),rgba(170,100,255,.08));}
+  .legend-btn{background:linear-gradient(180deg,rgba(255,200,50,.25),rgba(255,200,50,.08));}
+  .deckhand-btn{background:linear-gradient(180deg,rgba(100,200,150,.25),rgba(100,200,150,.08));}
+  .viscount-btn{background:linear-gradient(180deg,rgba(180,100,200,.25),rgba(180,100,200,.08));}
+
+  /* ===== LAPOR SECTION ===== */
+  .lapor-form{background:rgba(0,0,0,.3);border:1px solid rgba(79,228,228,.15);border-radius:3px;padding:22px;}
+  .lapor-field{margin-bottom:18px;}
+  .lapor-label{display:block;font-family:'Press Start 2P',monospace;font-size:7px;color:var(--diamond);letter-spacing:2px;margin-bottom:8px;text-transform:uppercase;}
+  .lapor-input{width:100%;padding:12px;background:rgba(0,0,0,.4);border:1px solid rgba(79,228,228,.25);border-radius:2px;font-family:'VT323',monospace;font-size:16px;color:#fff;letter-spacing:1px;transition:all .2s;resize:none;}
+  .lapor-input:focus{outline:none;background:rgba(0,0,0,.5);border-color:rgba(79,228,228,.6);box-shadow:0 0 14px rgba(79,228,228,.15);}
+  .lapor-textarea{min-height:120px;font-size:15px;}
+  .lapor-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234FE4E4' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:18px;padding-right:40px;}
+  .lapor-btn{width:100%;padding:14px;background:linear-gradient(180deg,var(--grass),var(--grass-dark));color:#fff;font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:2px;border:none;border-radius:2px;cursor:pointer;transition:all .15s;box-shadow:0 4px 0 var(--grass-dark),0 0 16px rgba(93,158,47,.3);}
+  .lapor-btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--grass-dark),0 0 24px rgba(93,158,47,.5);}
+  .lapor-btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--grass-dark);}
+
+  /* ===== PANDUAN SECTION ===== */
+  .guides-container{display:grid;gap:16px;}
+  .guide-card{background:rgba(0,0,0,.3);border:1px solid rgba(79,228,228,.18);border-radius:3px;padding:20px;transition:all .25s;}
+  .guide-card:hover{border-color:rgba(79,228,228,.35);box-shadow:0 8px 24px rgba(79,228,228,.08);}
+  .guide-icon{font-size:32px;margin-bottom:10px;}
+  .guide-title{font-family:'Press Start 2P',monospace;font-size:9px;color:var(--diamond);letter-spacing:2px;margin-bottom:14px;text-transform:uppercase;}
+  .guide-desc{font-family:'VT323',monospace;font-size:15px;color:rgba(200,230,255,.7);line-height:1.7;letter-spacing:.5px;}
+  .guide-desc p{margin-bottom:12px;}
+  .guide-desc strong{color:#fff;}
+  .guide-desc code{background:rgba(79,228,228,.12);border:1px solid rgba(79,228,228,.25);padding:3px 8px;border-radius:2px;font-size:14px;color:var(--neon);letter-spacing:1px;display:inline-block;}
+  .guide-steps{list-style:none;margin:12px 0;padding-left:0;}
+  .guide-steps li{margin-bottom:10px;padding-left:24px;position:relative;}
+  .guide-steps li::before{content:'▸';position:absolute;left:0;color:var(--diamond);}
+  .guide-steps strong{color:var(--diamond);}
+  .guide-tip{background:rgba(245,197,24,.08);border-left:3px solid var(--gold);padding:10px 12px;margin-top:12px;border-radius:2px;font-size:14px;color:rgba(200,230,255,.65);}
+
+  /* ===== EVENT SECTION ===== */
+  .events-container{display:grid;gap:16px;}
+  .event-card{background:var(--panel);border:2px solid rgba(79,228,228,.2);border-radius:4px;overflow:hidden;transition:all .25s;}
+  .event-card:hover{transform:translateY(-4px);border-color:rgba(79,228,228,.45);}
+  .event-card.featured{border-color:rgba(79,228,228,.4);}
+  .event-card.featured:hover{box-shadow:0 12px 36px rgba(79,228,228,.18);}
+  .event-image-wrap{position:relative;overflow:hidden;aspect-ratio:16/9;background:rgba(0,0,0,.4);}
+  .event-image{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;}
+  .event-card:hover .event-image{transform:scale(1.05);}
+  .event-badge{position:absolute;top:14px;right:14px;background:rgba(255,200,50,.2);border:1px solid rgba(255,200,50,.5);color:var(--gold);font-family:'Press Start 2P',monospace;font-size:7px;padding:5px 11px;border-radius:2px;letter-spacing:1px;animation:badgePulse 2s ease-in-out infinite;}
+  .event-content{padding:20px;}
+  .event-title-wrap{margin-bottom:14px;border-bottom:1px solid rgba(79,228,228,.15);padding-bottom:12px;}
+  .event-title{font-family:'Press Start 2P',monospace;font-size:9px;color:var(--diamond);letter-spacing:2px;margin:0 0 8px 0;text-transform:uppercase;}
+  .event-date{font-family:'VT323',monospace;font-size:15px;color:rgba(200,230,255,.5);letter-spacing:1px;}
+  .event-description{font-family:'VT323',monospace;font-size:15px;color:rgba(200,230,255,.7);margin-bottom:16px;line-height:1.6;letter-spacing:.5px;}
+  .event-details{background:rgba(0,0,0,.3);border-left:3px solid var(--diamond);padding:14px;border-radius:2px;margin-bottom:14px;}
+  .event-detail-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;font-family:'VT323',monospace;font-size:14px;}
+  .event-detail-item:last-child{margin-bottom:0;}
+  .detail-label{color:var(--diamond);font-weight:bold;white-space:nowrap;letter-spacing:1px;}
+  .detail-value{color:rgba(200,230,255,.8);flex:1;}
+  .event-rules{background:rgba(93,158,47,.08);border:1px solid rgba(93,158,47,.25);padding:12px;border-radius:2px;font-family:'VT323',monospace;font-size:14px;color:rgba(200,230,255,.7);line-height:1.6;letter-spacing:.5px;}
+  .event-rules strong{color:#88dd44;}
+
   /* TOAST */
   .toast{position:fixed;top:20px;right:20px;background:rgba(12,24,42,.97);border:1px solid var(--diamond);border-radius:2px;padding:10px 18px;font-family:'VT323',monospace;font-size:17px;color:var(--diamond);z-index:9999;transform:translateX(140%);transition:transform .3s ease;letter-spacing:1px;}
   .toast.show{transform:translateX(0);}
@@ -432,17 +555,43 @@
   </svg>
 </div>
 
-<!-- NAV -->
+<!-- INTRO OVERLAY -->
+<div id="introOverlay">
+  <div class="intro-bg"></div>
+  <div class="intro-particles" id="introParticles"></div>
+  <div class="intro-content">
+    <div class="intro-logo-wrap">
+      <img src="https://i.imgur.com/h7IUOYU.jpeg" alt="Logo" class="intro-logo" id="introLogo"/>
+    </div>
+    <div class="intro-title-wrap">
+      <div class="intro-word" id="iw1">VALORIX</div>
+      <div class="intro-word accent" id="iw2">NATION</div>
+    </div>
+    <div class="intro-sub" id="introSub">⛏ SURVIVAL · CREATIVE · PVP ⛏</div>
+    <div class="intro-bar-wrap" id="introBarWrap">
+      <div class="intro-bar-track"><div class="intro-bar-fill" id="introBarFill"></div></div>
+      <div class="intro-bar-label" id="introBarLabel">Memuat server...</div>
+    </div>
+    <div class="intro-skip" id="introSkip" onclick="skipIntro()">[ SKIP ▶ ]</div>
+  </div>
+  <div class="intro-blocks" id="introBlocks"></div>
+</div>
+
+<!-- NAV --
 <nav class="nav">
   <div class="nav-inner">
     <span class="nav-logo" onclick="showSection('home',0)">⛏ VALORIX</span>
-    <button class="nav-mobile-btn" onclick="toggleMobile()">☰</button>
+    <button class="nav-mobile-btn" id="navMobileBtn" onclick="toggleMobile()"><span></span><span></span><span></span></button>
     <div class="nav-links" id="navLinks">
       <button class="nav-link active" data-section="home" onclick="showSection('home',0)">🏠 Home</button>
       <button class="nav-link" data-section="features" onclick="showSection('features',1)">⚔️ Features</button>
       <button class="nav-link" data-section="gallery" onclick="showSection('gallery',2)">🖼 Galeri</button>
-      <button class="nav-link" data-section="social" onclick="showSection('social',3)">📢 Sosmed</button>
-      <button class="nav-link" data-section="staff" onclick="showSection('staff',4)">👑 Staff</button>
+      <button class="nav-link" data-section="rank" onclick="showSection('rank',3)">💎 Rank</button>
+      <button class="nav-link" data-section="panduan" onclick="showSection('panduan',4)">📖 Panduan</button>
+      <button class="nav-link" data-section="event" onclick="showSection('event',5)">🎉 Event</button>
+      <button class="nav-link" data-section="social" onclick="showSection('social',6)">📢 Sosmed</button>
+      <button class="nav-link" data-section="staff" onclick="showSection('staff',7)">👑 Staff</button>
+      <button class="nav-link" data-section="lapor" onclick="showSection('lapor',8)">🚨 Lapor</button>
     </div>
   </div>
 </nav>
@@ -665,6 +814,121 @@
     </div>
   </div>
 
+  <!-- PANDUAN -->
+  <div class="section" id="section-panduan">
+    <div class="header">
+      <div class="server-badge">📖 TUTORIAL</div>
+      <h2 class="server-title" style="font-size:clamp(14px,4vw,28px);">PANDUAN<br><span class="title-accent">BERMAIN</span></h2>
+      <p class="subtitle">▸ CARA BERMAIN DI SERVER ◂</p>
+    </div>
+    
+    <div class="mc-card">
+      <div class="cc-tr"></div><div class="cc-bl"></div>
+      <div class="guides-container">
+
+        <!-- CLAIM LANE -->
+        <div class="guide-card">
+          <div class="guide-icon">🏗️</div>
+          <div class="guide-title">Claim Lane</div>
+          <div class="guide-desc">
+            <p>Claim lane adalah area pribadi untuk bermain. Caranya sangat mudah:</p>
+            <ol class="guide-steps">
+              <li><strong>Pilih area</strong> yang ingin kamu gunakan di dunia Survival</li>
+              <li><strong>Pasang pagar</strong> di sekeliling area tersebut sebagai penanda batas</li>
+              <li><strong>Pasang sign</strong> bertuliskan <code>[rp]</code> di dekat pagar</li>
+              <li><strong>Selesai!</strong> Area kamu sudah ter-claim dan aman dari gangguan pemain lain</li>
+            </ol>
+            <p class="guide-tip">💡 <strong>Tip:</strong> Semakin bagus desain pagar kamu, semakin keren penampilannya!</p>
+          </div>
+        </div>
+
+        <!-- SURVIVAL -->
+        <div class="guide-card">
+          <div class="guide-icon">🌍</div>
+          <div class="guide-title">Mode Survival</div>
+          <div class="guide-desc">
+            <p>Survival adalah mode klasik Minecraft. Untuk memulai:</p>
+            <ol class="guide-steps">
+              <li><strong>Ketik perintah</strong> <code>/rtp</code> untuk teleport random ke lokasi aman</li>
+              <li><strong>Atau kunjungi NPC</strong> di Lobby yang bernama "RTP" untuk teleport</li>
+              <li><strong>Mulai berkembang</strong> dengan menambang, berburu, dan berbisnis</li>
+              <li><strong>Buka toko</strong> dengan ketik <code>/shop</code> atau bicara ke NPC "Shop" di Lobby untuk mulai berdagang</li>
+            </ol>
+            <p class="guide-tip">💡 <strong>Tip:</strong> Semakin banyak kamu berdagang, semakin kaya uangmu!</p>
+          </div>
+        </div>
+
+        <!-- ONE BLOCK -->
+        <div class="guide-card">
+          <div class="guide-icon">📦</div>
+          <div class="guide-title">One Block Challenge</div>
+          <div class="guide-desc">
+            <p>One Block adalah gamemode unik dimana kamu hanya punya 1 block untuk digali. Semakin banyak digali, semakin banyak resource yang muncul!</p>
+            <ol class="guide-steps">
+              <li><strong>Ketik perintah</strong> <code>/ob join</code> untuk mulai One Block</li>
+              <li><strong>Atau kunjungi NPC</strong> di Lobby yang bernama "One Block" untuk join</li>
+              <li><strong>Gali block</strong> terus-menerus untuk mendapatkan berbagai item</li>
+              <li><strong>Kumpulkan resources</strong> dan bangun island kamu sendiri</li>
+              <li><strong>Naik level</strong> dan dapatkan hadiah eksklusif saat mencapai milestone</li>
+            </ol>
+            <p class="guide-tip">💡 <strong>Tip:</strong> Jangan lupa harvest resources dengan cermat untuk efisiensi maksimal!</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- EVENT -->
+  <div class="section" id="section-event">
+    <div class="header">
+      <div class="server-badge">🎉 ACARA SPESIAL</div>
+      <h2 class="server-title" style="font-size:clamp(14px,4vw,28px);">EVENT<br><span class="title-accent">TERBARU</span></h2>
+      <p class="subtitle">▸ IKUTI EVENT DAN MENANG HADIAH ◂</p>
+    </div>
+    
+    <div class="mc-card">
+      <div class="cc-tr"></div><div class="cc-bl"></div>
+      <div class="events-container">
+
+        <!-- EVENT IDUL ADHA -->
+        <div class="event-card featured">
+          <div class="event-image-wrap">
+            <img src="https://i.imgur.com/4gWvelC.png" alt="Event Idul Adha" class="event-image"/>
+            <div class="event-badge">🎊 SPESIAL</div>
+          </div>
+          <div class="event-content">
+            <div class="event-title-wrap">
+              <h3 class="event-title">🐑 IDUL ADHA SPECIAL</h3>
+              <div class="event-date">📅 26 Mei 2026 | 20.00 WIB— Malam Hari</div>
+            </div>
+            <p class="event-description">
+              Rayakan Idul Adha bersama Valorix Nation! Event spesial dengan mini-games seru dan kompetisi yang penuh tantangan. 
+            </p>
+            <div class="event-details">
+              <div class="event-detail-item">
+                <span class="detail-label">🎁 HADIAH UTAMA:</span>
+                <span class="detail-value">Senjata Brutal Legend Eksklusif</span>
+              </div>
+              <div class="event-detail-item">
+                <span class="detail-label">⏰ WAKTU:</span>
+                <span class="detail-value">26 Mei 2026 — Malam Hari</span>
+              </div>
+              <div class="event-detail-item">
+                <span class="detail-label">👥 PESERTA:</span>
+                <span class="detail-value">Semua pemain server Valorix Nation</span>
+              </div>
+            </div>
+            <p class="event-rules">
+              <strong>📌 Cara Ikutan:</strong> Datang ke lobby server pada waktu yang ditentukan dan ikuti mini-games menarik. Pemenang akan mendapatkan senjata brutal legend yang keren!
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- SOCIAL -->
   <div class="section" id="section-social">
     <div class="header">
@@ -681,9 +945,9 @@
             <svg class="social-icon" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           </div>
           <div class="social-info">
-            <div class="social-platform wa-txt">WHATSAPP</div>
-            <div class="social-handle">grub WhatsApp</div>
-            <span class="social-action wa-act">masuk Sekarang →</span>
+            <div class="social-platform wa-txt">GRUP WHATSAPP</div>
+            <div class="social-handle">Valorix Nation Community</div>
+            <span class="social-action wa-act">🔗 Gabung Grup →</span>
           </div>
           <span class="social-arrow">›</span>
         </a>
@@ -695,45 +959,7 @@
           <div class="social-info">
             <div class="social-platform tt-txt">TIKTOK</div>
             <div class="social-handle">@valorixnation</div>
-            <span class="social-action tt-act">Lihat Konten →</span>
-          </div>
-          <span class="social-arrow">›</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- STAFF -->
-  <div class="section" id="section-social">
-    <div class="header">
-      <div class="server-badge">📢 KOMUNITAS</div>
-      <h2 class="server-title" style="font-size:clamp(14px,4vw,28px);">SOSIAL<br><span class="title-accent">MEDIA</span></h2>
-      <p class="subtitle">▸ GABUNG KOMUNITAS KAMI ◂</p>
-    </div>
-
-    <div class="mc-card" style="margin-bottom:0;">
-      <div class="cc-tr"></div><div class="cc-bl"></div>
-      <div class="social-grid">
-        <a href="https://chat.whatsapp.com/Fzh6XsvTnWQ3RvrahXlVV5?s=cl&p=a&ilr=2" target="_blank" class="social-card wa">
-          <div class="social-icon-wrap wa-ico">
-            <svg class="social-icon" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          </div>
-          <div class="social-info">
-            <div class="social-platform wa-txt">WHATSAPP</div>
-            <div class="social-handle">grub WhatsApp</div>
-            <span class="social-action wa-act">gabung Sekarang →</span>
-          </div>
-          <span class="social-arrow">›</span>
-        </a>
-
-        <a href="https://tiktok.com/@valorixnation" target="_blank" class="social-card tt">
-          <div class="social-icon-wrap tt-ico">
-            <svg class="social-icon" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.54V6.78a4.85 4.85 0 01-1.02-.09z"/></svg>
-          </div>
-          <div class="social-info">
-            <div class="social-platform tt-txt">TIKTOK</div>
-            <div class="social-handle">@valorixnation</div>
-            <span class="social-action tt-act">Lihat Konten →</span>
+                <span class="social-action tt-act">Lihat Konten →</span>
           </div>
           <span class="social-arrow">›</span>
         </a>
@@ -800,12 +1026,193 @@
     </div>
   </div>
 
+  <!-- RANK -->
+  <div class="section" id="section-rank">
+    <div class="header">
+      <div class="server-badge">💎 DONASI RANK</div>
+      <h2 class="server-title" style="font-size:clamp(14px,4vw,28px);">RANK<br><span class="title-accent">VALORIX</span></h2>
+      <p class="subtitle">▸ PILIH RANK TERBAIKMU ◂</p>
+    </div>
+    <div class="rank-grid">
+
+      <!-- VIP -->
+      <div class="rank-card rank-vip">
+        <div class="rank-header-bar">
+          <span class="rank-icon">✨</span>
+          <span class="rank-name">VIP</span>
+          <span class="rank-price">Rp 10.000</span>
+        </div>
+        <ul class="rank-perks">
+          <li>🏠 /sethome (3 slot)</li>
+          <li>👥 /team create</li>
+          <li>🍗 /feed</li>
+          <li>🔧 /anvil</li>
+          <li>🎁 /kit VIP</li>
+          <li>💵 20k Money</li>
+          <li>🪙 25 Coins</li>
+        </ul>
+        <a href="https://wa.me/6285755152817?text=Halo+Kak+Fadlan%2C+saya+mau+beli+rank+VIP+di+server+Valorix+Nation.+Boleh+info+lebih+lanjut%3F" target="_blank" class="rank-buy-btn vip-btn">🛒 BELI SEKARANG</a>
+      </div>
+
+      <!-- VIP+ -->
+      <div class="rank-card rank-vipp">
+        <div class="rank-header-bar">
+          <span class="rank-icon">🩵</span>
+          <span class="rank-name">VIP+</span>
+          <span class="rank-price">Rp 25.000</span>
+        </div>
+        <ul class="rank-perks">
+          <li>🎭 /Nick</li>
+          <li>🕊️ /Fly</li>
+          <li>🏠 /sethome (5 slot)</li>
+          <li>💵 30k Money</li>
+          <li>🪙 50 Coins</li>
+          <li>⚔️ Free Senjata Legendaris</li>
+        </ul>
+        <a href="https://wa.me/6285755152817?text=Halo+Kak+Fadlan%2C+saya+mau+beli+rank+VIP%2B+di+server+Valorix+Nation.+Boleh+info+lebih+lanjut%3F" target="_blank" class="rank-buy-btn vipp-btn">🛒 BELI SEKARANG</a>
+      </div>
+
+      <!-- MVP+ -->
+      <div class="rank-card rank-mvp">
+        <div class="rank-badge-sale">DISKON</div>
+        <div class="rank-header-bar">
+          <span class="rank-icon">💜</span>
+          <span class="rank-name">MVP+</span>
+          <span class="rank-price">Rp 40.000</span>
+        </div>
+        <ul class="rank-perks">
+          <li>🏠 /sethome (20 slot)</li>
+          <li>📦 /ec</li>
+          <li>🕊️ /fly</li>
+          <li>🎭 /nick</li>
+          <li>🔧 /repair</li>
+          <li>⚒️ /anvil</li>
+          <li>🎁 /kit legend</li>
+          <li>💵 40k Money</li>
+          <li>🪙 70 Coins</li>
+          <li>⚔️ Free Senjata Legendaris</li>
+        </ul>
+        <a href="https://wa.me/6285755152817?text=Halo+Kak+Fadlan%2C+saya+mau+beli+rank+MVP%2B+di+server+Valorix+Nation.+Boleh+info+lebih+lanjut%3F" target="_blank" class="rank-buy-btn mvp-btn">🛒 BELI SEKARANG</a>
+      </div>
+
+      <!-- LEGEND -->
+      <div class="rank-card rank-legend">
+        <div class="rank-badge-sale">DISKON</div>
+        <div class="rank-header-bar">
+          <span class="rank-icon">💛</span>
+          <span class="rank-name">LEGEND</span>
+          <span class="rank-price">Rp 60.000</span>
+        </div>
+        <ul class="rank-perks">
+          <li>🏠 /sethome (30 slot)</li>
+          <li>📦 /ec</li>
+          <li>💣 /beezooka</li>
+          <li>🍗 /feed</li>
+          <li>🕊️ /fly</li>
+          <li>🎭 /nick</li>
+          <li>❤️ /heal</li>
+          <li>🔧 /repair</li>
+          <li>🎁 /kit sultan</li>
+          <li>🌤️ /day · 🌙 /night · ☀️ /sun</li>
+          <li>💵 55k Money</li>
+          <li>🪙 70 Coins</li>
+          <li>⚔️ Free Senjata Legendaris</li>
+        </ul>
+        <a href="https://wa.me/6285755152817?text=Halo+Kak+Fadlan%2C+saya+mau+beli+rank+LEGEND+di+server+Valorix+Nation.+Boleh+info+lebih+lanjut%3F" target="_blank" class="rank-buy-btn legend-btn">🛒 BELI SEKARANG</a>
+      </div>
+
+      <!-- DECKHAND -->
+      <div class="rank-card rank-deckhand">
+        <div class="rank-header-bar">
+          <span class="rank-icon">⚓</span>
+          <span class="rank-name">DECKHAND</span>
+          <span class="rank-price">Rp 80.000</span>
+        </div>
+        <ul class="rank-perks">
+          <li>🏠 /sethome (50 slot)</li>
+          <li>📦 /ec</li>
+          <li>🍗 /feed</li>
+          <li>🕊️ /fly</li>
+          <li>🔧 /repair</li>
+          <li>🎭 /nick</li>
+          <li>❤️ /heal</li>
+          <li>🛠️ /craft</li>
+          <li>👤 /head</li>
+          <li>💣 /beezooka</li>
+          <li>🎁 /kit supreme</li>
+          <li>🌙 /nv (nightvision)</li>
+          <li>💵 100k Money</li>
+          <li>🪙 100 Coins</li>
+          <li>⚔️ Free Senjata Legendaris</li>
+        </ul>
+        <a href="https://wa.me/6285755152817?text=Halo+Kak+Fadlan%2C+saya+mau+beli+rank+DECKHAND+di+server+Valorix+Nation.+Boleh+info+lebih+lanjut%3F" target="_blank" class="rank-buy-btn deckhand-btn">🛒 BELI SEKARANG</a>
+      </div>
+
+      <!-- VISCOUNT -->
+      <div class="rank-card rank-viscount">
+        <div class="rank-header-bar">
+          <span class="rank-icon">♠</span>
+          <span class="rank-name">VISCOUNT</span>
+          <span class="rank-price">Rp 140.000</span>
+        </div>
+        <ul class="rank-perks">
+          <li>🏠 /sethome (80 slot)</li>
+          <li>🫥 /vanish</li>
+          <li>🎁 /kit jendral</li>
+          <li>💵 250k Money</li>
+          <li>🪙 200 Coins</li>
+          <li>⚔️ Free Senjata Legendaris</li>
+        </ul>
+        <a href="https://wa.me/6285755152817?text=Halo+Kak+Fadlan%2C+saya+mau+beli+rank+VISCOUNT+di+server+Valorix+Nation.+Boleh+info+lebih+lanjut%3F" target="_blank" class="rank-buy-btn viscount-btn">🛒 BELI SEKARANG</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LAPOR -->
+  <div class="section" id="section-lapor">
+    <div class="header">
+      <div class="server-badge">🚨 ADUAN PEMAIN</div>
+      <h2 class="server-title" style="font-size:clamp(14px,4vw,28px);">LAPOR<br><span class="title-accent">MASALAH</span></h2>
+      <p class="subtitle">▸ LAPORKAN KE OWNER / STAFF ◂</p>
+    </div>
+    <div class="mc-card">
+      <div class="cc-tr"></div><div class="cc-bl"></div>
+      <p style="font-family:'VT323',monospace;font-size:16px;color:rgba(200,230,255,.6);letter-spacing:1px;margin-bottom:18px;line-height:1.6;">Tulis laporanmu di bawah — setelah klik Kirim kamu akan diarahkan ke WhatsApp Owner dengan pesannya sudah terisi otomatis.</p>
+
+      <div class="lapor-form">
+        <div class="lapor-field">
+          <label class="lapor-label">Nama IGN (In-Game Name)</label>
+          <input type="text" id="laporIGN" class="lapor-input" placeholder="Nama kamu di server..."/>
+        </div>
+        <div class="lapor-field">
+          <label class="lapor-label">Jenis Laporan</label>
+          <select id="laporJenis" class="lapor-input lapor-select">
+            <option value="Laporan Cheater/Hacker">🎮 Cheater / Hacker</option>
+            <option value="Laporan Bug/Glitch">🐛 Bug / Glitch</option>
+            <option value="Laporan Toxic/Spam">💬 Pemain Toxic / Spam</option>
+            <option value="Laporan Item Hilang">📦 Item Hilang</option>
+            <option value="Laporan Lainnya">⚠️ Lainnya</option>
+          </select>
+        </div>
+        <div class="lapor-field">
+          <label class="lapor-label">Detail Laporan</label>
+          <textarea id="laporDetail" class="lapor-input lapor-textarea" placeholder="Ceritakan secara detail kejadiannya — siapa yang terlibat, kapan terjadi, apa yang terjadi..."></textarea>
+        </div>
+        <button class="lapor-btn" onclick="kirimLaporan()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:8px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          KIRIM VIA WHATSAPP
+        </button>
+      </div>
+    </div>
+  </div>
+
   </div><!-- end page-wrapper -->
 </div>
 
 <script>
 // ===== NAV ORDER =====
-const sectionOrder = ['home','features','gallery','social','staff'];
+const sectionOrder = ['home','features','gallery','rank','panduan','event','social','staff','lapor'];
 let currentSectionIndex = 0;
 
 // ===== STARS =====
@@ -944,7 +1351,10 @@ function showToast(msg){
 
 // ===== MOBILE NAV =====
 function toggleMobile(){
-  document.getElementById('navLinks').classList.toggle('open');
+  const navLinks = document.getElementById('navLinks');
+  const navBtn = document.getElementById('navMobileBtn');
+  navLinks.classList.toggle('open');
+  navBtn.classList.toggle('active');
 }
 
 // ===== SERVER CHECK =====
@@ -1059,8 +1469,7 @@ checkServer();
     const div = document.createElement('div');
     div.style.cssText=`position:absolute;bottom:0;left:${x}%;transform:translateX(-50%);`;
     div.innerHTML=`<svg width="${leavesW+10}" height="${h}" viewBox="0 0 ${leavesW+10} ${h}" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;">
-      <!-- trunk -->
-      <rect x="${(leavesW+10)/2-trunkW/2}" y="${h-28}" width="${trunkW}" height="28" fill="${trunkColor}"/>
+     <rect x="${(leavesW+10)/2-trunkW/2}" y="${h-28}" width="${trunkW}" height="28" fill="${trunkColor}"/>
       <rect x="${(leavesW+10)/2-trunkW/2+2}" y="${h-28}" width="3" height="28" fill="#4a2e14"/>
       <!-- leaves layer 3 (bottom) -->
       <rect x="${(leavesW+10)/2-leavesW/2}" y="${h-28-leavesH*0.5}" width="${leavesW}" height="${leavesH*0.6}" fill="${lColor}"/>
@@ -1072,6 +1481,66 @@ checkServer();
     treesEl.appendChild(div);
   }
 })();
+
+// ===== INTRO ANIMATION =====
+function initIntro(){
+  const overlay = document.getElementById('introOverlay');
+  const particles = document.getElementById('introParticles');
+  const blocks = document.getElementById('introBlocks');
+
+  // Create particles
+  for(let i=0;i<30;i++){
+    const p = document.createElement('div');
+    p.className = 'intro-particle';
+    const s = Math.random()*3+2;
+    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${1+Math.random()*2}s;animation-duration:${2+Math.random()*2}s;animation-delay:${Math.random()*2}s;`;
+    particles.appendChild(p);
+  }
+
+  // Create pixel blocks
+  setTimeout(()=>{
+    for(let i=0;i<15;i++){
+      const block = document.createElement('div');
+      block.className = 'intro-block';
+      const size = 30+Math.random()*40;
+      block.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${.1+Math.random()*.4}s;`;
+      blocks.appendChild(block);
+    }
+  }, 1800);
+
+  // Auto fadeout
+  setTimeout(()=>skipIntro(), 4500);
+}
+
+function skipIntro(){
+  const overlay = document.getElementById('introOverlay');
+  if(overlay) overlay.style.animation='none';
+  overlay.style.opacity='0';
+  setTimeout(()=>overlay.remove(), 300);
+}
+
+initIntro();
+
+// ===== LAPOR FUNCTION =====
+function kirimLaporan(){
+  const ign = document.getElementById('laporIGN').value.trim();
+  const jenis = document.getElementById('laporJenis').value;
+  const detail = document.getElementById('laporDetail').value.trim();
+
+  if(!ign || !detail){
+    showToast('⚠ Isi semua field dulu!');
+    return;
+  }
+
+  const pesan = `${jenis}%0A%0ANama IGN: ${encodeURIComponent(ign)}%0A%0ADetail:%0A${encodeURIComponent(detail)}%0A%0A—%0ALaporan dikirim dari Valorix Nation Website`;
+  window.open(`https://wa.me/6285755152817?text=${pesan}`, '_blank');
+
+  // Clear form
+  document.getElementById('laporIGN').value = '';
+  document.getElementById('laporDetail').value = '';
+  showToast('✔ Pesan siap dikirim ke WhatsApp!');
+}
 </script>
 </body>
 </html>
+      
